@@ -1,0 +1,35 @@
+[14-Jun-2015 17:38:38 UTC] PHP Warning:  require_once(DOCUMENT_ROOT/helper/PHPServlet.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:38:38 UTC] PHP Stack trace:
+[14-Jun-2015 17:38:38 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:38:38 UTC] PHP Fatal error:  require_once(): Failed opening required 'DOCUMENT_ROOT/helper/PHPServlet.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:38:38 UTC] PHP Stack trace:
+[14-Jun-2015 17:38:38 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:39:42 UTC] PHP Fatal error:  Class 'PHPServlet' not found in /home/ubuntu/workspace/pcparts/product/index.php on line 3
+[14-Jun-2015 17:39:42 UTC] PHP Stack trace:
+[14-Jun-2015 17:39:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:41:31 UTC] PHP Warning:  require_once(/home/ubuntu/workspace/jbase/helper/PHPServlet.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:41:31 UTC] PHP Stack trace:
+[14-Jun-2015 17:41:31 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:41:31 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/ubuntu/workspace/jbase/helper/PHPServlet.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:41:31 UTC] PHP Stack trace:
+[14-Jun-2015 17:41:31 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:42:05 UTC] PHP Warning:  require_once(/home/ubuntu/workspace/jbase/helper/PHPServlet.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:42:05 UTC] PHP Stack trace:
+[14-Jun-2015 17:42:05 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:42:05 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/ubuntu/workspace/jbase/helper/PHPServlet.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:42:05 UTC] PHP Stack trace:
+[14-Jun-2015 17:42:05 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:43:18 UTC] PHP Warning:  require_once(/home/ubuntu/workspace/jbase/helper/PHPServlet.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:43:18 UTC] PHP Stack trace:
+[14-Jun-2015 17:43:18 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:43:18 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/ubuntu/workspace/jbase/helper/PHPServlet.php' (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/pcparts/product/index.php on line 2
+[14-Jun-2015 17:43:18 UTC] PHP Stack trace:
+[14-Jun-2015 17:43:18 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:47:53 UTC] PHP Fatal error:  Class 'PHPServlet' not found in /home/ubuntu/workspace/pcparts/product/index.php on line 3
+[14-Jun-2015 17:47:53 UTC] PHP Stack trace:
+[14-Jun-2015 17:47:53 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[14-Jun-2015 17:58:54 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/ubuntu/workspace/pcparts/product/index.php on line 7
+[14-Jun-2015 17:58:56 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/ubuntu/workspace/pcparts/product/index.php on line 7
+[14-Jun-2015 18:19:46 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/ubuntu/workspace/helper/PHPServlet.php on line 29
+[14-Jun-2015 18:19:46 UTC] PHP Stack trace:
+[14-Jun-2015 18:19:46 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
