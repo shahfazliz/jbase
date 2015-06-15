@@ -99,3 +99,25 @@ Stack trace:
 [15-Jun-2015 04:11:23 UTC] PHP   2. PHPServlet->__construct() /home/ubuntu/workspace/pcparts/product/index.php:34
 [15-Jun-2015 04:11:23 UTC] PHP   3. Product->doPOST() /home/ubuntu/workspace/helper/PHPServlet.php:15
 [15-Jun-2015 04:11:23 UTC] PHP   4. DBEvents->postData() /home/ubuntu/workspace/pcparts/product/index.php:9
+[15-Jun-2015 06:53:30 UTC] PHP Warning:  Missing argument 1 for DBEvents::selectWhereID(), called in /home/ubuntu/workspace/helper/DBEvents.php on line 83 and defined in /home/ubuntu/workspace/helper/DBEvents.php on line 140
+[15-Jun-2015 06:53:30 UTC] PHP Stack trace:
+[15-Jun-2015 06:53:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[15-Jun-2015 06:53:30 UTC] PHP   2. PHPServlet->__construct() /home/ubuntu/workspace/pcparts/product/index.php:36
+[15-Jun-2015 06:53:30 UTC] PHP   3. Product->doGET() /home/ubuntu/workspace/helper/PHPServlet.php:18
+[15-Jun-2015 06:53:30 UTC] PHP   4. DBEvents->getData() /home/ubuntu/workspace/pcparts/product/index.php:18
+[15-Jun-2015 06:53:30 UTC] PHP   5. DBEvents->selectWhereID() /home/ubuntu/workspace/helper/DBEvents.php:83
+[15-Jun-2015 07:06:30 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in /home/ubuntu/workspace/helper/DBEvents.php:152
+Stack trace:
+#0 /home/ubuntu/workspace/helper/DBEvents.php(152): PDOStatement->execute()
+#1 /home/ubuntu/workspace/helper/DBEvents.php(86): DBEvents->selectIDsWhereXY('2', 0)
+#2 /home/ubuntu/workspace/pcparts/product/index.php(18): DBEvents->getData(Array)
+#3 /home/ubuntu/workspace/helper/PHPServlet.php(18): Product->doGET(Array)
+#4 /home/ubuntu/workspace/pcparts/product/index.php(36): PHPServlet->__construct()
+#5 {main}
+  thrown in /home/ubuntu/workspace/helper/DBEvents.php on line 152
+[15-Jun-2015 07:19:28 UTC] PHP Fatal error:  Call to undefined method DBEvents::selectItemWhereXY() in /home/ubuntu/workspace/helper/DBEvents.php on line 94
+[15-Jun-2015 07:19:28 UTC] PHP Stack trace:
+[15-Jun-2015 07:19:28 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[15-Jun-2015 07:19:28 UTC] PHP   2. PHPServlet->__construct() /home/ubuntu/workspace/pcparts/product/index.php:36
+[15-Jun-2015 07:19:28 UTC] PHP   3. Product->doGET() /home/ubuntu/workspace/helper/PHPServlet.php:18
+[15-Jun-2015 07:19:28 UTC] PHP   4. DBEvents->getData() /home/ubuntu/workspace/pcparts/product/index.php:18

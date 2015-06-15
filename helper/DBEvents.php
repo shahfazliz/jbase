@@ -73,8 +73,83 @@
             return array('id' => $dataID);
         }
         
-        public function getData($REQUEST){}
-        public function putData($REQUEST){}
+        // getData
+        // data_id: item=id, X=0, Y=MODEL_ID
+        // data: X=key_id, Y=data_id
+        public function getData($REQUEST){
+            switch($REQUEST['id']){
+                case !null:
+                    
+                    // test if the supplied id exists
+                    $data = $this-> selectWhereID($REQUEST['id']);
+                    $this-> stmt = null;
+                    if($data['item'] === 'id'){
+                        
+                        // get keyIDs of this model
+                        $keys = $this-> selectAllWhereXY($this-> MODEL_ID, 0);
+                        $this-> stmt = null;
+                        
+                        $result['id'] = $data['id'];
+                        foreach($keys as $key){
+                            $item = $this-> selectItemWhereXY($key['id'], $data['id']);
+                            $result[$key['item']] = $item['item'];
+                        }
+                        $this-> stmt = null;
+                        $result['timestamp'] = $data['timestamp'];
+                        return $result;
+                    }
+                    break;
+                
+                default:
+                    $result = array();
+                    foreach($REQUEST as $key => $value){
+                        // get key_id
+                        $keyID = $this-> selectIDWhereItemXY($key, $this-> MODEL_ID, 0);
+                        $this-> stmt = null;
+                        
+                        // get data_id where data X=key_id
+                        $datas = $this-> selectYsWhereX($keyID);
+                        $this-> stmt = null;
+                        
+                        foreach($datas as $data){
+                            $query['id'] = $data['y'];
+                            $result[] = $this-> getData($query);
+                        }
+                    }
+                    return $result;
+                    break;
+            }
+        }
+        
+        // getData
+        // data: X=key_id, Y=data_id
+        public function putData($REQUEST){
+            try{
+                // test if the supplied id exists
+                $data = $this-> selectWhereID($REQUEST['id']);
+                $this-> stmt = null;
+                if($data['item'] === 'id'){
+                    
+                    // get keyIDs
+                    $requestQuery = $REQUEST;
+                    unset($requestQuery['id']);
+                    foreach($requestQuery as $key => $value){
+                        $keys[$key] = $this-> insertIfNotExistWhereItemXY($key, $this-> MODEL_ID, 0);
+                    }
+                    $this-> stmt = null;
+                    
+                    foreach($requestQuery as $key => $value){
+                        $this-> updateItemWhereXY($value, $keys[$key], $REQUEST['id']);
+                    }
+                    $this-> stmt = null;
+                    return true;
+                }
+            }catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+                return false;
+            }
+        }
+        
         public function deleteData($REQUEST){}
         
         private function insertWhereItemXY($item, $x, $y){
@@ -103,6 +178,31 @@
             return $result;
         }
         
+        private function insertIfNotExistWhereXY($item, $x, $y){
+            $result = $this-> selectIDWhereXY($x, $y);
+            if(!$result){
+                $this-> stmt = null;
+                $result = $this-> insertWhereItemXY($item, $x, $y);
+                $this-> stmt = null;
+            }
+            
+            return $result;
+        }
+        
+        private function selectYsWhereX($x){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("SELECT y FROM BigTable WHERE x=:x");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            return $this-> stmt-> fetchAll(PDO::FETCH_ASSOC);;
+        }
+        
         private function selectIDWhereItemXY($item, $x, $y){
             // prepare statement
             if($this-> stmt === null){
@@ -119,8 +219,101 @@
             $result = $this-> stmt-> fetch(PDO::FETCH_ASSOC);
             return $result['id'];
         }
-        private function selectWhere(){}
-        private function updateWhere(){}
+        
+        private function selectIDWhereXY($x, $y){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("SELECT id FROM BigTable WHERE x=:x AND y=:y");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
+            $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            $result = $this-> stmt-> fetch(PDO::FETCH_ASSOC);
+            return $result['id'];
+        }
+        
+        private function selectAllWhereXY($x, $y){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("SELECT * FROM BigTable WHERE x=:x AND y=:y");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
+            $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            return $this-> stmt-> fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        private function selectItemsWhereXY($x, $y){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("SELECT item FROM BigTable WHERE x=:x AND y=:y");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
+            $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            return $this-> stmt-> fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        private function selectItemWhereXY($x, $y){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("SELECT item FROM BigTable WHERE x=:x AND y=:y");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
+            $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            return $this-> stmt-> fetch(PDO::FETCH_ASSOC);
+        }
+        
+        private function selectWhereID($id){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("SELECT * FROM BigTable WHERE id=:id");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':id', $id, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            return $this-> stmt-> fetch(PDO::FETCH_ASSOC);
+        }
+        
+        private function updateItemWhereXY($item, $x, $y){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("UPDATE BigTable SET item=:item WHERE x=:x AND y=:y");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':item', $item, PDO::PARAM_STR);
+            $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
+            $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            $this-> stmt = null;
+            
+            $this-> insertIfNotExistWhereXY($item, $x, $y);
+            $this-> stmt = null;
+        }
+        
         private function deleteWhere(){}
     }
 ?>

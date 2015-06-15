@@ -1,30 +1,13 @@
+## JBase
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+Aku buat JBase sebab aku tau mau buat lagi dah back end programming 
+yang sama. Aku nak focus kat building application and focus on the 
+business rules. Which is the Model in MCV. View and Controller boleh 
+pakai Angular.js
 
-
-Hi there! Welcome to Cloud9 IDE!
-
-To get you started, we have created a small hello world application.
-
-1) Open the hello-world.php file
-
-2) Follow the run instructions in the file's comments
-
-3) If you want to look at the Apache logs, check out ~/lib/apache2/log
-
-And that's all there is to it! Just have fun. Go ahead and edit the code, 
-or add new files. It's all up to you! 
-
-Happy coding!
-The Cloud9 IDE team
-
-
-## Support & Documentation
-
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
-To watch some training videos, visit http://www.youtube.com/user/c9ide
+Aku pilih unutk code dalam PHP (walaupun tak berapa pandai 
+pakai PHP), sebab nak beli shared service server lebih murah dari 
+java based server (walaupun aku lagi familier dengan Java Programming
+Languge siap ada Oracle Certified Associate Programmer). Lagi satu
+PHP ni lebih common dalam pasaran kalau banding dengan Python ataupun
+Ruby.
