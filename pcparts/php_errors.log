@@ -33,3 +33,69 @@
 [14-Jun-2015 18:19:46 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/ubuntu/workspace/helper/PHPServlet.php on line 29
 [14-Jun-2015 18:19:46 UTC] PHP Stack trace:
 [14-Jun-2015 18:19:46 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[15-Jun-2015 01:04:42 UTC] PHP Parse error:  syntax error, unexpected '(', expecting ',' or ';' in /home/ubuntu/workspace/helper/DBEvents.php on line 8
+[15-Jun-2015 01:04:42 UTC] PHP Stack trace:
+[15-Jun-2015 01:04:42 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[15-Jun-2015 01:42:55 UTC] PHP Fatal error:  Call to undefined method DBEvents::insertWhereItemXY() in /home/ubuntu/workspace/helper/DBEvents.php on line 32
+[15-Jun-2015 01:42:55 UTC] PHP Stack trace:
+[15-Jun-2015 01:42:55 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[15-Jun-2015 01:42:55 UTC] PHP   2. PHPServlet->__construct() /home/ubuntu/workspace/pcparts/product/index.php:34
+[15-Jun-2015 01:42:55 UTC] PHP   3. Product->doGET() /home/ubuntu/workspace/helper/PHPServlet.php:18
+[15-Jun-2015 01:42:55 UTC] PHP   4. DBEvents->__construct() /home/ubuntu/workspace/pcparts/product/index.php:15
+[15-Jun-2015 02:04:37 UTC] PHP Fatal error:  Call to undefined function insertIfNotExistWhereItemXY() in /home/ubuntu/workspace/helper/DBEvents.php on line 32
+[15-Jun-2015 02:04:37 UTC] PHP Stack trace:
+[15-Jun-2015 02:04:37 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[15-Jun-2015 02:04:37 UTC] PHP   2. PHPServlet->__construct() /home/ubuntu/workspace/pcparts/product/index.php:34
+[15-Jun-2015 02:04:37 UTC] PHP   3. Product->doGET() /home/ubuntu/workspace/helper/PHPServlet.php:18
+[15-Jun-2015 02:04:37 UTC] PHP   4. DBEvents->__construct() /home/ubuntu/workspace/pcparts/product/index.php:15
+[15-Jun-2015 02:52:03 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'y' cannot be null' in /home/ubuntu/workspace/helper/DBEvents.php:87
+Stack trace:
+#0 /home/ubuntu/workspace/helper/DBEvents.php(87): PDOStatement->execute()
+#1 /home/ubuntu/workspace/helper/DBEvents.php(67): DBEvents->insertWhereItemXY('Asus', '6', NULL)
+#2 /home/ubuntu/workspace/pcparts/product/index.php(9): DBEvents->postData(Array)
+#3 /home/ubuntu/workspace/helper/PHPServlet.php(15): Product->doPOST(Array)
+#4 /home/ubuntu/workspace/pcparts/product/index.php(34): PHPServlet->__construct()
+#5 {main}
+  thrown in /home/ubuntu/workspace/helper/DBEvents.php on line 87
+[15-Jun-2015 02:55:27 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'y' cannot be null' in /home/ubuntu/workspace/helper/DBEvents.php:87
+Stack trace:
+#0 /home/ubuntu/workspace/helper/DBEvents.php(87): PDOStatement->execute()
+#1 /home/ubuntu/workspace/helper/DBEvents.php(67): DBEvents->insertWhereItemXY('Asus', '4', NULL)
+#2 /home/ubuntu/workspace/pcparts/product/index.php(9): DBEvents->postData(Array)
+#3 /home/ubuntu/workspace/helper/PHPServlet.php(15): Product->doPOST(Array)
+#4 /home/ubuntu/workspace/pcparts/product/index.php(34): PHPServlet->__construct()
+#5 {main}
+  thrown in /home/ubuntu/workspace/helper/DBEvents.php on line 87
+[15-Jun-2015 02:55:36 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'y' cannot be null' in /home/ubuntu/workspace/helper/DBEvents.php:87
+Stack trace:
+#0 /home/ubuntu/workspace/helper/DBEvents.php(87): PDOStatement->execute()
+#1 /home/ubuntu/workspace/helper/DBEvents.php(67): DBEvents->insertWhereItemXY('Asus', '4', NULL)
+#2 /home/ubuntu/workspace/pcparts/product/index.php(9): DBEvents->postData(Array)
+#3 /home/ubuntu/workspace/helper/PHPServlet.php(15): Product->doPOST(Array)
+#4 /home/ubuntu/workspace/pcparts/product/index.php(34): PHPServlet->__construct()
+#5 {main}
+  thrown in /home/ubuntu/workspace/helper/DBEvents.php on line 87
+[15-Jun-2015 02:57:48 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'y' cannot be null' in /home/ubuntu/workspace/helper/DBEvents.php:88
+Stack trace:
+#0 /home/ubuntu/workspace/helper/DBEvents.php(88): PDOStatement->execute()
+#1 /home/ubuntu/workspace/helper/DBEvents.php(68): DBEvents->insertWhereItemXY('Asus', '4', NULL)
+#2 /home/ubuntu/workspace/pcparts/product/index.php(9): DBEvents->postData(Array)
+#3 /home/ubuntu/workspace/helper/PHPServlet.php(15): Product->doPOST(Array)
+#4 /home/ubuntu/workspace/pcparts/product/index.php(34): PHPServlet->__construct()
+#5 {main}
+  thrown in /home/ubuntu/workspace/helper/DBEvents.php on line 88
+[15-Jun-2015 02:59:12 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'y' cannot be null' in /home/ubuntu/workspace/helper/DBEvents.php:88
+Stack trace:
+#0 /home/ubuntu/workspace/helper/DBEvents.php(88): PDOStatement->execute()
+#1 /home/ubuntu/workspace/helper/DBEvents.php(68): DBEvents->insertWhereItemXY('Asus', '4', NULL)
+#2 /home/ubuntu/workspace/pcparts/product/index.php(9): DBEvents->postData(Array)
+#3 /home/ubuntu/workspace/helper/PHPServlet.php(15): Product->doPOST(Array)
+#4 /home/ubuntu/workspace/pcparts/product/index.php(34): PHPServlet->__construct()
+#5 {main}
+  thrown in /home/ubuntu/workspace/helper/DBEvents.php on line 88
+[15-Jun-2015 04:11:23 UTC] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/ubuntu/workspace/helper/DBEvents.php on line 56
+[15-Jun-2015 04:11:23 UTC] PHP Stack trace:
+[15-Jun-2015 04:11:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/pcparts/product/index.php:0
+[15-Jun-2015 04:11:23 UTC] PHP   2. PHPServlet->__construct() /home/ubuntu/workspace/pcparts/product/index.php:34
+[15-Jun-2015 04:11:23 UTC] PHP   3. Product->doPOST() /home/ubuntu/workspace/helper/PHPServlet.php:15
+[15-Jun-2015 04:11:23 UTC] PHP   4. DBEvents->postData() /home/ubuntu/workspace/pcparts/product/index.php:9

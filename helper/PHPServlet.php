@@ -29,7 +29,7 @@
         }
         
         public function getModule(){return $this-> MODULE;}
-        public function getModel(){return $this- MODEL;}
+        public function getModel(){return $this-> MODEL;}
         
         public function doPOST($request){}
         public function doGET($request){}
