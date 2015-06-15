@@ -150,7 +150,27 @@
             }
         }
         
-        public function deleteData($REQUEST){}
+        public function deleteData($REQUEST){
+            // test if $REQUEST['id'] even exist
+            if($REQUEST['id'] === null) return false;
+            
+            try{
+                // test if the supplied id exists
+                $data = $this-> selectWhereID($REQUEST['id']);
+                $this-> stmt = null;
+                if($data['item'] === 'id'){
+                $this-> deleteWhereID($REQUEST['id']);
+                $this-> stmt = null;
+                
+                $this-> deleteWhereY($REQUEST['id']);
+                $this-> stmt = null;
+                }
+                return true;
+            }catch(PDOException $e){
+                echo "Connection failed: " . $e->getMessage();
+                return false;
+            }
+        }
         
         private function insertWhereItemXY($item, $x, $y){
             // prepare statement
@@ -314,6 +334,30 @@
             $this-> stmt = null;
         }
         
-        private function deleteWhere(){}
+        private function deleteWhereID($id){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("DELETE FROM BigTable WHERE id=:id");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':id', $id, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+        }
+        
+        private function deleteWhereY($y){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("DELETE FROM BigTable WHERE y=:y");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+        }
     }
 ?>
