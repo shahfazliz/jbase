@@ -159,11 +159,11 @@
                 $data = $this-> selectWhereID($REQUEST['id']);
                 $this-> stmt = null;
                 if($data['item'] === 'id'){
-                $this-> deleteWhereID($REQUEST['id']);
-                $this-> stmt = null;
-                
-                $this-> deleteWhereY($REQUEST['id']);
-                $this-> stmt = null;
+                    $this-> deleteWhereID($REQUEST['id']);
+                    $this-> stmt = null;
+                    
+                    $this-> deleteWhereY($REQUEST['id']);
+                    $this-> stmt = null;
                 }
                 return true;
             }catch(PDOException $e){
