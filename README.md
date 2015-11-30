@@ -21,8 +21,8 @@ Lagi satu PHP ni lebih common dalam pasaran kalau banding dengan Python ataupun 
 3. Dalam folder module, create folder model.
 
 >   eg: /www/module/model
-    eg: /www/accounting/invoice
-    eg: /www/accounting/receipt
+>   eg: /www/accounting/invoice
+>   eg: /www/accounting/receipt
 
 4. Dalam each forlder model, create index.php
 5. Dalam index.php, create

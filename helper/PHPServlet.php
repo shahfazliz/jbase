@@ -1,7 +1,11 @@
 <?php
+    require_once($_SERVER["DOCUMENT_ROOT"].'/auth/APIToken.php');
+    require_once($_SERVER["DOCUMENT_ROOT"].'/helper/StringManipulator.php');
+    
     class PHPServlet{
         private $MODULE;
         private $MODEL;
+        private $AUTH_ID;
         function __construct(){
             
             // get module and model
@@ -12,18 +16,27 @@
             // respond according to request method
             switch($_SERVER['REQUEST_METHOD']){
                 case 'POST':
+                    // error_log(($this-> MODEL).' REQUEST in GET: '.print_r($_POST, true));
                     $this-> doPOST($_POST);
                     break;
+                    
                 case 'GET':
+                    // error_log(($this-> MODEL).' REQUEST in GET: '.print_r($_GET, true));
                     $this-> doGET($_GET);
                     break;
+                    
                 case 'PUT':
                     parse_str(file_get_contents("php://input"),$_PUT);
+                    // error_log(($this-> MODEL).' REQUEST in GET: '.print_r($_PUT, true));
                     $this-> doPUT($_PUT);
                     break;
                 case 'DELETE':
                     parse_str(file_get_contents("php://input"),$_DELETE);
+                    // error_log(($this-> MODEL).' REQUEST in GET: '.print_r($_DELETE, true));
                     $this-> doDELETE($_DELETE);
+                    break;
+                case 'OPTIONS':
+                    $this-> doOPTIONS(); 
                     break;
             }
         }
@@ -59,10 +72,50 @@
         
         public function getModule(){return $this-> MODULE;}
         public function getModel(){return $this-> MODEL;}
+        public function getAuthId(){return $this-> AUTH_ID;}
         
         public function doPOST($request){}
         public function doGET($request){}
         public function doPUT($request){}
         public function doDELETE($request){}
+        public function doOPTIONS(){}
+        
+        // Set Auth Id
+        public function setAuthId($token){
+            // get Auth id
+            $api = new APIToken();
+            $this-> AUTH_ID = $api-> getAuthId($token);
+        }
+        
+        // 
+        public function checkAutorization($token, $action){
+            $tool = new StringManipulator();
+            $api = new APIToken();
+            if($api-> checkAutorization($token, $tool-> ToCamelCase($this-> MODEL), $action)){
+                return true;
+            }
+            else return false;
+        }
+        
+        // Function to get the client ip address
+        public function getClientIp() {
+            $ipaddress = '';
+            if ($_SERVER['HTTP_CLIENT_IP'])
+                $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+            else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+                $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            else if($_SERVER['HTTP_X_FORWARDED'])
+                $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+            else if($_SERVER['HTTP_FORWARDED_FOR'])
+                $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+            else if($_SERVER['HTTP_FORWARDED'])
+                $ipaddress = $_SERVER['HTTP_FORWARDED'];
+            else if($_SERVER['REMOTE_ADDR'])
+                $ipaddress = $_SERVER['REMOTE_ADDR'];
+            else
+                $ipaddress = 'UNKNOWN';
+         
+            return $ipaddress;
+        }
     }
 ?>

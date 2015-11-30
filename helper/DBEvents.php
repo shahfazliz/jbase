@@ -1,4 +1,5 @@
 <?php
+    require_once($_SERVER["DOCUMENT_ROOT"].'/auth/APIToken.php');
     class DBEvents{
         private $MODULE;
         private $MODEL;
@@ -6,12 +7,15 @@
         private $MODULE_ID;
         private $MODEL_ID;
         
+        private $AUTH_ID;
+        
         private $stmt = null;
         private $conn = null;
         
-        function __construct($MODULE, $MODEL){
-            $this-> MODULE = $MODULE;
-            $this-> MODEL  = $MODEL;
+        function __construct($MODULE, $MODEL, $AUTH_ID = 0){
+            $this-> MODULE  = $MODULE;
+            $this-> MODEL   = $MODEL;
+            $this-> AUTH_ID = $AUTH_ID;
             
             $username   = 'shahfazliz';
             $password   = '';
@@ -25,7 +29,7 @@
                 $this-> conn-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
                 // create table if not exist
-                $this-> conn-> exec('CREATE TABLE IF NOT EXISTS BigTable (id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, item TEXT, x BIGINT(20) UNSIGNED NOT NULL DEFAULT 0, y BIGINT(20) UNSIGNED NOT NULL DEFAULT 0, timestamp TIMESTAMP, PRIMARY KEY (id));');
+                $this-> conn-> exec('CREATE TABLE IF NOT EXISTS BigTable (id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, item TEXT, x BIGINT(20) UNSIGNED NOT NULL DEFAULT 0, y BIGINT(20) UNSIGNED NOT NULL DEFAULT 0, timestamp TIMESTAMP, creator BIGINT(20) UNSIGNED NOT NULL DEFAULT 0, PRIMARY KEY (id));');
                 
                 // get MODULE id
                 // item = MODULE, X=0 Y=0
@@ -96,25 +100,44 @@
                         }
                         $this-> stmt = null;
                         $result['timestamp'] = $data['timestamp'];
-                        return $result;
+                        return array($result);
                     }
                     break;
                 
+                // For some specific queries/search results
+                // case ??:
+                //     // Example code to get result if key = value
+                //     $result = array();
+                //     foreach($REQUEST as $key => $value){
+                //         // get key_id
+                //         $keyID = $this-> selectIDWhereItemXY($key, $this-> MODEL_ID, 0);
+                //         $this-> stmt = null;
+                        
+                //         // get data_id where data X=key_id
+                //         $datas = $this-> selectYsWhereX($keyID);
+                //         $this-> stmt = null;
+                        
+                //         foreach($datas as $data){
+                //             $query['id'] = $data['y'];
+                //             $result[] = $this-> getData($query);
+                //         }
+                //     }
+                //     return $result;
+                //     break;
+                
+                // Get All
                 default:
                     $result = array();
-                    foreach($REQUEST as $key => $value){
-                        // get key_id
-                        $keyID = $this-> selectIDWhereItemXY($key, $this-> MODEL_ID, 0);
-                        $this-> stmt = null;
-                        
-                        // get data_id where data X=key_id
-                        $datas = $this-> selectYsWhereX($keyID);
-                        $this-> stmt = null;
-                        
-                        foreach($datas as $data){
-                            $query['id'] = $data['y'];
-                            $result[] = $this-> getData($query);
-                        }
+                    
+                    // get data_id where X=0, Y=Model
+                    $datas = $this-> selectAllIDWhereXY(0, $this-> MODEL_ID);
+                    $this-> stmt = null;
+                    
+                    // Based on result ids, do foreach and requery the given ids
+                    foreach($datas as $data){
+                        $query['id'] = $data['id'];
+                        $obj = $this-> getData($query);
+                        $result[] = $obj[0];
                     }
                     return $result;
                     break;
@@ -175,12 +198,14 @@
         private function insertWhereItemXY($item, $x, $y){
             // prepare statement
             if($this-> stmt === null)
-                $this-> stmt = $this-> conn-> prepare("INSERT INTO BigTable (item, x, y) VALUES (:item, :x, :y)");
+                $this-> stmt = $this-> conn-> prepare("INSERT INTO BigTable (item, x, y, creator) VALUES (:item, :x, :y, :creator)");
             
             // bind value
             $this-> stmt-> bindValue(':item', $item, PDO::PARAM_STR);
             $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
             $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            $this-> stmt-> bindValue(':creator', $this-> AUTH_ID, PDO::PARAM_INT);
             
             // execute
             $this-> stmt-> execute();
@@ -220,7 +245,7 @@
             
             // execute
             $this-> stmt-> execute();
-            return $this-> stmt-> fetchAll(PDO::FETCH_ASSOC);;
+            return $this-> stmt-> fetchAll(PDO::FETCH_ASSOC);
         }
         
         private function selectIDWhereItemXY($item, $x, $y){
@@ -260,6 +285,21 @@
             // prepare statement
             if($this-> stmt === null){
                 $this-> stmt = $this-> conn-> prepare("SELECT * FROM BigTable WHERE x=:x AND y=:y");
+            }
+            
+            // bind value
+            $this-> stmt-> bindValue(':x', $x, PDO::PARAM_INT);
+            $this-> stmt-> bindValue(':y', $y, PDO::PARAM_INT);
+            
+            // execute
+            $this-> stmt-> execute();
+            return $this-> stmt-> fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        private function selectAllIDWhereXY($x, $y){
+            // prepare statement
+            if($this-> stmt === null){
+                $this-> stmt = $this-> conn-> prepare("SELECT id FROM BigTable WHERE x=:x AND y=:y");
             }
             
             // bind value

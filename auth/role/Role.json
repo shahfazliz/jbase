@@ -1,0 +1,45 @@
+{
+    "properties":{
+        "Name":{
+            "type"  :"text",
+            "value" :""
+        },
+        "Auth":{
+            "type"      :"checkbox",
+            "value"     :"",
+            "options"   :{
+                "Read"          :false,
+                "Create"        :false,
+                "Update (owner)":false,
+                "Update (other)":false,
+                "Delete (owner)":false,
+                "Delete (other)":false
+            }
+        },
+        "Role":{
+            "type"      :"checkbox",
+            "value"     :"",
+            "options"   :{
+                "Read"          :false,
+                "Create"        :false,
+                "Update (owner)":false,
+                "Update (other)":false,
+                "Delete (owner)":false,
+                "Delete (other)":false
+            }
+        },
+        "Baju":{
+            "type"      :"checkbox",
+            "value"     :"",
+            "options"   :{
+                "Read"          :false,
+                "Create"        :false,
+                "Update (owner)":false,
+                "Update (other)":false,
+                "Delete (owner)":false,
+                "Delete (other)":false
+            }
+        }
+    },
+    "actions":{}
+}

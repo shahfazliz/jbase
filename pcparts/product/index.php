@@ -1,6 +1,8 @@
 <?php
     header('Content-Type: application/json'); // JSON
     header("access-control-allow-origin: *"); // Cross-Origin Resource Sharing (CORS)
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    header('Access-Control-Allow-Headers: X-Requested-With');
     
     require_once($_SERVER["DOCUMENT_ROOT"].'/helper/PHPServlet.php');
     require_once($_SERVER["DOCUMENT_ROOT"].'/helper/DBEvents.php');
@@ -10,9 +12,10 @@
         public function doPOST($REQUEST){
             $db     = new DBEvents(parent::getModule(), parent::getModel());
             $result = $db-> postData($REQUEST);
-            $json   = json_encode($result);
+            $db-> close();
             
             // Echo json OR jsonp
+            $json   = json_encode($result);
             echo parent::returnJSONPResponse($REQUEST, $json);
         }
         
@@ -20,9 +23,10 @@
         public function doGET($REQUEST){
             $db     = new DBEvents(parent::getModule(), parent::getModel());
             $result = $db-> getData($REQUEST);
-            $json   = json_encode($result);
+            $db-> close();
             
             // Echo json OR jsonp
+            $json   = json_encode($result);
             echo parent::returnJSONPResponse($REQUEST, $json);
         }
         
@@ -32,9 +36,10 @@
         public function doPUT($REQUEST){
             $db     = new DBEvents(parent::getModule(), parent::getModel());
             $result = $db-> putData($REQUEST);
-            $json   = json_encode($result);
+            $db-> close();
             
             // Echo json OR jsonp
+            $json   = json_encode($result);
             echo parent::returnJSONPResponse($REQUEST, $json);
         }
         
@@ -42,9 +47,10 @@
         public function doDELETE($REQUEST){
             $db     = new DBEvents(parent::getModule(), parent::getModel());
             $result = $db-> deleteData($REQUEST);
-            $json   = json_encode($result);
+            $db-> close();
             
             // Echo json OR jsonp
+            $json   = json_encode($result);
             echo parent::returnJSONPResponse($REQUEST, $json);
         }
     }

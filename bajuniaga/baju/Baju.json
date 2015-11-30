@@ -1,0 +1,69 @@
+{
+    "properties":{
+        "Image" : {
+            "type"    : "file",
+            "accept"  : "image/*",
+            "value"   : "",
+            "onChange": "function(){}"
+        },
+        
+        "Name" : {
+            "type"    : "text",
+            "value"   : "",
+            "validate": ["string","required"],
+            "onChange": "function(){}"
+        },
+        
+        "Test Radio" : {
+            "type"    : "radio",
+            "value"   : "",
+            "options" : ["XS","S","M","L","XL","XXL","XXXL"],
+            "onChange": "function(){console.log(\"Radio changed from jebatonfire\");}"
+        },
+        
+        "Test Select"   : {
+            "type"      : "select",
+            "value"     : {"id": 0, "label": "-- Make A Selection --"},
+            "options"   : [
+                {"id": 0, "label": "-- Make A Selection --"},
+                {"id": 1, "label": "Selection 1"},
+                {"id": 2, "label": "Selection 2"},
+                {"id": 3, "label": "Selection 3"}
+            ],
+            "onChange": "function(){}"
+        },
+        
+        "Size" : {
+            "type"      : "checkbox",
+            "value"     : "",
+            "options"   : {
+                "XS"    : false,
+                "S"     : false,
+                "M"     : false,
+                "L"     : false,
+                "XL"    : false,
+                "XXL"   : false,
+                "XXXL"  : false
+            },
+            "onChange": "function(){}"
+        },
+        
+        "Color" : {
+            "type"    : "color",
+            "value"   : "",
+            "onChange": "function(){}"
+        },
+        
+        "Description" : {
+            "type"    : "textarea",
+            "rows"    : 3,
+            "value"   : "",
+            "onChange": "function(){}"
+        }
+    },
+    "actions":{
+        "onChange": {
+            "exe": "function(propertyName){this.properties[propertyName].onChange();}"
+        }
+    }
+}
