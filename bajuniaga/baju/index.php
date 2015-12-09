@@ -49,14 +49,7 @@
                 $json[] = $jsonArray;
             }
             
-            // $jsonArray = json_decode(file_get_contents("Baju.json"), true);
-            // foreach($jsonArray['properties'] as $key => $value){
-            //     $value['value'] = $result[str_replace(' ', '_', $key)];
-            //     $jsonArray['properties'][$key] = $value;
-            // }
-            
             // Echo json OR jsonp
-            // $json = json_encode($jsonArray);
             $json = json_encode($json);
             echo parent::returnJSONPResponse($REQUEST, $json);
         }

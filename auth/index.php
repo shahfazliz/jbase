@@ -37,17 +37,21 @@
             unset($REQUEST['APIToken']);
             
             $db     = new APIAuth();
-            $result = $db-> getData($REQUEST);
+            $results= $db-> getData($REQUEST);
             $db-> close();
             
-            $jsonArray = json_decode(file_get_contents("Auth.json"), true);
-            foreach($jsonArray['properties'] as $key => $value){
-                $value['value'] = $result[str_replace(' ', '_', $key)];
-                $jsonArray['properties'][$key] = $value;
+            $json = array();
+            foreach($results as $result){
+                $jsonArray = json_decode(file_get_contents("Auth.json"), true);
+                foreach($jsonArray['properties'] as $key => $value){
+                    $value['value'] = $result[str_replace(' ', '_', $key)];
+                    $jsonArray['properties'][$key] = $value;
+                }
+                $json[] = $jsonArray;
             }
             
             // Echo json OR jsonp
-            $json = json_encode($jsonArray);
+            $json = json_encode($json);
             echo parent::returnJSONPResponse($REQUEST, $json);
         }
         

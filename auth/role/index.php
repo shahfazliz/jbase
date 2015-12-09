@@ -28,24 +28,29 @@
         }
         
         // test with: curl -X GET https://jbase-shahfazliz.c9users.io/auth/role/
-        // test with: curl -X GET https://jbase-shahfazliz.c9.io/bajuniaga/baju/?id=109
+        // test with: curl -X GET https://jbase-shahfazliz.c9.io/auth/role/?id=10
         public function doGet($REQUEST){
-            if(!parent::checkAutorization($REQUEST['APIToken'], 'Read')) return false; // throw new UnexpectedValueException('Request unauthorized');
-            parent::setAuthId($REQUEST['APIToken']);
+            // if(!parent::checkAutorization($REQUEST['APIToken'], 'Read')) return false; // throw new UnexpectedValueException('Request unauthorized');
+            // parent::setAuthId($REQUEST['APIToken']);
             unset($REQUEST['APIToken']);
             
             $db     = new DBEvents(parent::getModule(), parent::getModel());
-            $result = $db-> getData($REQUEST);
+            $results= $db-> getData($REQUEST);
             $db-> close();
             
-            $jsonArray = json_decode(file_get_contents("Role.json"), true);
-            foreach($jsonArray['properties'] as $key => $value){
-                $value['value'] = $result[str_replace(' ', '_', $key)];
-                $jsonArray['properties'][$key] = $value;
+            $json = array();
+            foreach($results as $result){
+                $jsonArray = json_decode(file_get_contents("Role.json"), true);
+                $jsonArray['id'] = $result['id'];
+                foreach($jsonArray['properties'] as $key => $value){
+                    $value['value'] = $result[str_replace(' ', '_', $key)];
+                    $jsonArray['properties'][$key] = $value;
+                }
+                $json[] = $jsonArray;
             }
             
             // Echo json OR jsonp
-            $json = json_encode($jsonArray);
+            $json = json_encode($json);
             echo parent::returnJSONPResponse($REQUEST, $json);
         }
         

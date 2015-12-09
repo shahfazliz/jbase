@@ -1,0 +1,5 @@
+[08-Dec-2015 08:01:19 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/bajuniaga/baju/index.php on line 43
+[08-Dec-2015 08:01:19 UTC] PHP Stack trace:
+[08-Dec-2015 08:01:19 UTC] PHP   1. {main}() /home/ubuntu/workspace/bajuniaga/baju/index.php:0
+[08-Dec-2015 08:01:19 UTC] PHP   2. PHPServlet->__construct() /home/ubuntu/workspace/bajuniaga/baju/index.php:87
+[08-Dec-2015 08:01:19 UTC] PHP   3. Baju->doGet() /home/ubuntu/workspace/helper/PHPServlet.php:25

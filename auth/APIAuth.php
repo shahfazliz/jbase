@@ -18,7 +18,7 @@
                 $this-> conn-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
                 // create APIAuth if not exist
-                $this-> conn-> exec('CREATE TABLE IF NOT EXISTS APIAuth (id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, Username VARCHAR(255) NOT NULL UNIQUE, Password VARCHAR(100) NOT NULL, Roles TEXT, timestamp TIMESTAMP, PRIMARY KEY (id));');
+                $this-> conn-> exec('CREATE TABLE IF NOT EXISTS APIAuth (id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT, Username VARCHAR(255) NOT NULL UNIQUE, Password VARCHAR(100) NOT NULL, Roles TEXT, timestamp TIMESTAMP, creator BIGINT(20) UNSIGNED NOT NULL DEFAULT 0, PRIMARY KEY (id));');
             }
             catch(PDOException $e){
                 echo "Connection failed: " . $e->getMessage();
@@ -99,6 +99,7 @@
                         case true:
                             $response = [];
                             $response['id'] = $result['id'];
+                            $response['Roles'] = $result['Roles'];
                             
                             $apiToken = new APIToken();
                             $response['APIToken'] = $apiToken-> createToken($result['id'], explode(',', $result['Roles']));

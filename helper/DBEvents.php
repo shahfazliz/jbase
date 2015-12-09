@@ -137,6 +137,7 @@
                     foreach($datas as $data){
                         $query['id'] = $data['id'];
                         $obj = $this-> getData($query);
+                        $obj[0]['id'] = $data['id'];
                         $result[] = $obj[0];
                     }
                     return $result;
